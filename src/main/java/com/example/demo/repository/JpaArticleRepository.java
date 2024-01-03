@@ -2,10 +2,12 @@ package com.example.demo.repository;
 
 import com.example.demo.domain.Article;
 import jakarta.persistence.EntityManager;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public class JpaArticleRepository implements ArticleRepository{
     private final EntityManager em;
 
