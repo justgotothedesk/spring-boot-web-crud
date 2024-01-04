@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Transactional
-@Service
+//@Service
 public class ArticleService {
     private final ArticleRepository articleRepository;
 
