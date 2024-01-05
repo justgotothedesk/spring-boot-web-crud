@@ -32,13 +32,19 @@ public class ArticleService {
         return articleRepository.findById(id);
     }
 
-    public Long update(Long id, Article article) {
-        Article originarticle = articleRepository.findById(id).get();
-        originarticle.setTitle(article.getTitle());
-        originarticle.setContent(article.getContent());
-        originarticle.setWriter(article.getWriter());
+    public Long update(Long id, Article newArticle) {
+        Optional<Article> optionalArticle = articleRepository.findById(id);
 
-        return article.getId();
+        if (optionalArticle.isPresent()) {
+            Article originArticle = optionalArticle.get();
+            originArticle.setTitle(newArticle.getTitle());
+            originArticle.setContent(newArticle.getContent());
+            originArticle.setWriter(newArticle.getWriter());
+
+            return originArticle.getId();
+        } else {
+            return null;
+        }
     }
 
     public void deleteOne(Long id) {
