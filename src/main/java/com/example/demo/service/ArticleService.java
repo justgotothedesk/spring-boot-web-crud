@@ -31,4 +31,17 @@ public class ArticleService {
     public Optional<Article> findOne(Long id) {
         return articleRepository.findById(id);
     }
+
+    public Long update(Long id, Article article) {
+        Article originarticle = articleRepository.findById(id).get();
+        originarticle.setTitle(article.getTitle());
+        originarticle.setContent(article.getContent());
+        originarticle.setWriter(article.getWriter());
+
+        return article.getId();
+    }
+
+    public void deleteOne(Long id) {
+        articleRepository.delete(id);
+    }
 }
