@@ -54,8 +54,8 @@ public class ArticleController {
 
     @GetMapping("articles/update/{id}")
     public String updateForm(@PathVariable Long id, Model model) {
-        Article article = articleService.findOne(id).get();
-        model.addAttribute("article", article);
+        Optional<Article> article = articleService.findOne(id);
+        model.addAttribute("article", article.orElse(null));
 
         return "articles/updateArticle";
     }
@@ -64,6 +64,6 @@ public class ArticleController {
     public String update(@PathVariable Long id, Article newArticle) {
         articleService.update(id, newArticle);
 
-        return "redirect:/articles";
+        return "redirect:/articles/";
     }
 }
