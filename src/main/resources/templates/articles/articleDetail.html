@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>detailPage</title>
+</head>
+<body>
+
+<div class="container">
+    <h2>게시글 상세페이지</h2>
+    <p>제목 : <span th:text="${article.title}"></span></p>
+    <p>작성자 : <span th:text="${article.writer}"></span></p>
+    <hr>
+    <p>내용 : <span th:text="${article.content}"></span></p>
+    <div>
+        <a th:href="@{/articles/update/{id}(id=${article.id})}">수정하기</a>
+    </div>
+</div>
+</body>
+</html>
