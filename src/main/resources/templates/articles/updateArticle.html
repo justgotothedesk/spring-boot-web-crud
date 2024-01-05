@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="<http://www.thymeleaf.org>">
+<head>
+    <meta charset="UTF-8">
+    <title>updateArticle</title>
+</head>
+<body>
+
+<div class="container">
+    <form method="post" th:action ="@{/articles/update{id}(id=${article.id})}">
+        <div class="form-group">
+            <label>작성자</label>
+            <input type="text" name="writer" th:value = "${article.writer}">
+            <br>
+            <label>제목</label>
+            <input type="text" name="writer" th:value = "${article.title}">
+            <br>
+            <label>내용</label>
+            <textarea name="content" th:text="${article.content}"></textarea>
+            <br>
+        </div>
+        <button type="submit">게시글 수정</button>
+    </form>
+</div>
+
+</body>
+</html>
