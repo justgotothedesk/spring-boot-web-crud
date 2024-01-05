@@ -11,6 +11,6 @@ public interface ArticleRepository {
     Optional<Article> findByTitle(String title);
     Optional<Article> findByContent(String content);
     Optional<Article> findByWriter(String writer);
-
     List<Article> findAll();
+    void delete(Long id);
 }
