@@ -2,6 +2,7 @@ package com.example.demo.repository;
 
 import com.example.demo.domain.Article;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -57,5 +58,11 @@ public class JpaArticleRepository implements ArticleRepository{
     public List<Article> findAll() {
         return em.createQuery("select a from Article a", Article.class)
                 .getResultList();
+    }
+
+    @Override
+    public void delete(Long id) {
+        Article article = findById(id).orElseThrow(() -> new EntityNotFoundException("Article not found"));
+        em.remove(article);
     }
 }
