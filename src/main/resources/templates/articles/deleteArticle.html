@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>deleteArticle</title>
+</head>
+<body>
+
+<div class="container">
+  <a th:href="@{/}" class="btn btn-primary">홈 화면으로</a>
+  <form method="post" th:action ="@{/articles/delete/{id}(id=${article.id})}">
+    <div class="form-group">
+      <h2>해당 게시글을 삭제하시겠습니까?</h2>
+      <h3>삭제를 원하시면, "삭제한다"를 입력해주세요.</h3>
+      <div class="form-group">
+        <p>제목 : <span th:text="${article.title}"></span></p>
+        <p>작성자 : <span th:text="${article.writer}"></span></p>
+        <hr>
+        <p>내용 : <span th:text="${article.content}"></span></p>
+        <textarea name="content"></textarea>
+      </div>
+      <button type="submit">게시글 삭제</button>
+    </div>
+  </form>
+  <form method="get" th:action ="@{/articles/{id}(id=${article.id})}">
+    <div class="form-group">
+      <button type="submit">취소</button>
+    </div>
+  </form>
+</div>
+
+</body>
+</html>
