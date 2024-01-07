@@ -7,6 +7,7 @@
 <body>
 
 <div class="container">
+    <a th:href="@{/}" class="btn btn-primary">홈 화면으로</a>
     <form action="/articles/new" method="post">
             <div class="form-group">
             <label for="writer">작성자</label>
@@ -20,6 +21,11 @@
             <br>
         </div>
         <button type="submit">게시글 작성</button>
+    </form>
+    <form method="get" th:action ="@{/}">
+        <div class="form-group">
+            <button type="submit">취소</button>
+        </div>
     </form>
 </div>
 
