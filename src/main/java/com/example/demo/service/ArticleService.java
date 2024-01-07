@@ -47,7 +47,13 @@ public class ArticleService {
         }
     }
 
-    public void deleteOne(Long id) {
-        articleRepository.delete(id);
+    public void deleteOne(Long id, Article article) {
+        Optional<Article> optionalArticle = articleRepository.findById(id);
+
+        if (optionalArticle.isPresent()) {
+            if (article.getContent().equals("삭제한다")) {
+                articleRepository.delete(id);
+            }
+        }
     }
 }
