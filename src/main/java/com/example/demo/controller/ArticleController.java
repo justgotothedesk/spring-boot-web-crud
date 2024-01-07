@@ -55,6 +55,9 @@ public class ArticleController {
     @GetMapping("articles/update/{id}")
     public String updateForm(@PathVariable Long id, Model model) {
         Optional<Article> article = articleService.findOne(id);
+        if (article.isEmpty()) {
+            return  "redirect:/articles/";
+        }
         model.addAttribute("article", article.orElse(null));
 
         return "articles/updateArticle";
@@ -63,6 +66,21 @@ public class ArticleController {
     @PostMapping("articles/update/{id}")
     public String update(@PathVariable Long id, Article newArticle) {
         articleService.update(id, newArticle);
+
+        return "redirect:/articles/";
+    }
+
+    @GetMapping("articles/delete/{id}")
+    public String deleteForm(@PathVariable Long id, Model model) {
+        Optional<Article> article = articleService.findOne(id);
+        model.addAttribute("article", article.orElse(null));
+
+        return "articles/deleteArticle";
+    }
+
+    @PostMapping("articles/delete/{id}")
+    public String delete(@PathVariable Long id, Article article) {
+        articleService.deleteOne(id, article);
 
         return "redirect:/articles/";
     }
