@@ -21,6 +21,11 @@
         </div>
         <button type="submit">게시글 수정</button>
     </form>
+    <form method="get" th:action ="@{/articles/{id}(id=${article.id})}">
+        <div class="form-group">
+            <button type="submit">취소</button>
+        </div>
+    </form>
 </div>
 
 </body>
