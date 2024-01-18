@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="<http://www.thymeleaf.org>">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
@@ -9,12 +9,16 @@
     <div>
         <h1>오늘의 게시판</h1>
         <p>
-            <a href="/register">회원가입</a>
-            <a href="/articles/new">게시글 작성하기</a>
+            <a th:if="${loggedIn}" href="/logout">로그아웃</a>
+            <a th:if="${loggedIn}" href="/info">내 정보</a>
+
+            <a th:unless="${loggedIn}" href="/register">회원가입</a>
+            <a th:unless="${loggedIn}" href="/login">로그인</a>
+
+            <a th:if="${loggedIn}" href="/articles/new">게시글 작성하기</a>
             <a href="articles/">글 목록</a>
         </p>
     </div>
 </div>
-
 </body>
 </html>
