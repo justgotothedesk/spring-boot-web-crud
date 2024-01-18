@@ -35,4 +35,8 @@ public class UserService {
     public Optional<User> findOneN(String nickname) {
         return userRepository.findByNickname(nickname);
     }
+
+    public Optional<User> findByIDAndPassword(String id, String password) {
+        return userRepository.findByIDAndPassword(id, password);
+    }
 }
