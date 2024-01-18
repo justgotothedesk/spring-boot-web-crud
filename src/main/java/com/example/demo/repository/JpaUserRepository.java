@@ -53,4 +53,14 @@ public class JpaUserRepository implements UserRepository{
         User user = findById(id).orElseThrow(() -> new EntityNotFoundException("User not found"));
         em.remove(user);
     }
+
+    @Override
+    public Optional<User> findByIDAndPassword(String id, String password) {
+        List<User> result = em.createQuery("select u from User u where u.id=:id and u.password=:password", User.class)
+                .setParameter("id", id)
+                .setParameter("password", password)
+                .getResultList();
+
+        return result.isEmpty() ? Optional.empty() : Optional.of(result.get(0));
+    }
 }
