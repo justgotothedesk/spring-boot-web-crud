@@ -1,8 +1,10 @@
 package com.example.demo.repository;
 
 import com.example.demo.domain.Article;
+import com.example.demo.domain.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -11,9 +13,11 @@ import java.util.Optional;
 //@Repository
 public class JpaArticleRepository implements ArticleRepository{
     private final EntityManager em;
+    private final HttpSession session;
 
-    public JpaArticleRepository(EntityManager em) {
+    public JpaArticleRepository(EntityManager em, HttpSession session) {
         this.em = em;
+        this.session = session;
     }
     @Override
     public Article save(Article article) {
