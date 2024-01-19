@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
 import java.util.Optional;
 
 @Controller
+@SessionAttributes("user")
 public class UserController {
     private final UserService userService;
     private final HttpSession session;
@@ -57,8 +59,8 @@ public class UserController {
     }
 
     @GetMapping("/logout")
-    public String logout() {
-        session.invalidate();
+    public String logout(SessionStatus sessionStatus) {
+        sessionStatus.setComplete();
         return "redirect:/";
     }
 
@@ -72,5 +74,49 @@ public class UserController {
         } else {
             return "redirect:/login";
         }
+    }
+
+    @GetMapping("/IDCheck")
+    public @ResponseBody ResponseDto<?> check(String id){
+
+        if(id == null || id.isEmpty()){
+            return new ResponseDto<>(-1,"아이디를 입력해주세요",null);
+        }
+        if (!userService.IDcheck(id)){
+            return new ResponseDto<>(1,"동일한 아이디가 존재합니다.", false);
+        }else{
+            return new ResponseDto<>(1,"사용가능한 아이디입니다.", true);
+        }
+    }
+
+    @GetMapping("/NicknameCheck")
+    public @ResponseBody ResponseDto<?> nickcheck(String nickname){
+
+        if(nickname == null || nickname.isEmpty()){
+            return new ResponseDto<>(-1,"닉네임을 입력해주세요",null);
+        }
+        if (!userService.Nickcheck(nickname)){
+            return new ResponseDto<>(1,"동일한 닉네임이 존재합니다.", false);
+        }else{
+            return new ResponseDto<>(1,"사용가능한 닉네임입니다.", true);
+        }
+    }
+
+    @GetMapping("users/update/{id}")
+    public String updateForm(@PathVariable String id, Model model) {
+        Optional<User> user = userService.findOne(id);
+        if (user.isEmpty()) {
+            return  "redirect:/info";
+        }
+        model.addAttribute("user", user.orElse(null));
+
+        return "users/updateUser";
+    }
+
+    @PostMapping("users/update/{id}")
+    public String update(@PathVariable String id, User newUser) {
+        userService.update(id, newUser);
+
+        return "redirect:/info";
     }
 }
