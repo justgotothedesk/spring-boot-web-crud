@@ -12,6 +12,7 @@
     <hr>
     <p>이름 : <span th:text="${user.name}"></span></p>
     <p>닉네임 : <span th:text="${user.nickname}"></span></p>
+    <a th:href="@{/users/update/{id}(id=${user.id})}">내 정보 변경하기</a>
 </div>
 
 </body>
