@@ -39,4 +39,27 @@ public class UserService {
     public Optional<User> findByIDAndPassword(String id, String password) {
         return userRepository.findByIDAndPassword(id, password);
     }
+
+    public boolean IDcheck(String id) {
+        return userRepository.IDcheck(id);
+    }
+
+    public boolean Nickcheck(String nickname) {
+        return userRepository.Nickcheck(nickname);
+    }
+
+    public String update(String id, User newUser) {
+        Optional<User> optionalUser = userRepository.findById(id);
+
+        if (optionalUser.isPresent()) {
+            User originUser = optionalUser.get();
+            originUser.setNickname(newUser.getNickname());
+            originUser.setPassword(newUser.getPassword());
+
+            return originUser.getId();
+        } else {
+            return null;
+        }
+
+    }
 }
