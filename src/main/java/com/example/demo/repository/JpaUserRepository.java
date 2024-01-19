@@ -63,4 +63,22 @@ public class JpaUserRepository implements UserRepository{
 
         return result.isEmpty() ? Optional.empty() : Optional.of(result.get(0));
     }
+
+    @Override
+    public boolean IDcheck(String id) {
+        List<User> result = em.createQuery("select u from User u where u.id=:id", User.class)
+                .setParameter("id", id)
+                .getResultList();
+
+        return result.isEmpty() ? true : false;
+    }
+
+    @Override
+    public boolean Nickcheck(String nickname) {
+        List<User> result = em.createQuery("select u from User u where u.nickname=:nickname", User.class)
+                .setParameter("nickname", nickname)
+                .getResultList();
+
+        return result.isEmpty() ? true : false;
+    }
 }
