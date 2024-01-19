@@ -15,4 +15,7 @@ public interface UserRepository {
     List<User> findAll();
     void delete(String id);
     Optional<User> findByIDAndPassword(String id, String password);
+
+    boolean IDcheck(String id);
+    boolean Nickcheck(String nickname);
 }
