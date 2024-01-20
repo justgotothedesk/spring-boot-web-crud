@@ -25,7 +25,7 @@
                     <a th:href = "@{/articles/{id}(id=${article.id})}" th:text = "${article.title}"></a>
                 </td>
                 <td th:text="${article.content}"></td>
-                <td th:text="${article.writer}"></td>
+                <td th:text="${article.user.nickname}"></td>
             </tr>
             </tbody>
         </table>

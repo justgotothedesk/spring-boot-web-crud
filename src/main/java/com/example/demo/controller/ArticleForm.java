@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.domain.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,5 +9,5 @@ import lombok.Setter;
 public class ArticleForm {
     private String title;
     private String content;
-    private String writer;
+    private User user;
 }
