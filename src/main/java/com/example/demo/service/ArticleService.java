@@ -39,7 +39,6 @@ public class ArticleService {
             Article originArticle = optionalArticle.get();
             originArticle.setTitle(newArticle.getTitle());
             originArticle.setContent(newArticle.getContent());
-            originArticle.setWriter(newArticle.getWriter());
 
             return originArticle.getId();
         } else {
