@@ -1,8 +1,10 @@
 package com.example.demo.controller;
 
 import com.example.demo.domain.Article;
+import com.example.demo.domain.Comment;
 import com.example.demo.domain.User;
 import com.example.demo.service.ArticleService;
+import com.example.demo.service.CommentService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,11 +20,13 @@ import java.util.Optional;
 @Controller
 public class ArticleController {
     private final ArticleService articleService;
+    private final CommentService commentService;
     private final HttpSession session;
 
     @Autowired
-    public ArticleController(ArticleService articleService, HttpSession session) {
+    public ArticleController(ArticleService articleService, CommentService commentService, HttpSession session) {
         this.articleService = articleService;
+        this.commentService = commentService;
         this.session = session;
     }
 
@@ -42,11 +46,10 @@ public class ArticleController {
         Article article = new Article();
         article.setTitle(form.getTitle());
         User temp = (User) session.getAttribute("user");
-        form.setWriter(temp.getNickname());
+        article.setUser(temp);
         article.setContent(form.getContent());
-        article.setWriter(form.getWriter());
         articleService.create(article);
-        return "redirect:/";
+        return "articles/articleList";
     }
 
     @GetMapping("articles/")
@@ -60,10 +63,14 @@ public class ArticleController {
     @GetMapping("articles/{id}")
     public String detail(@PathVariable Long id, Model model) {
         Optional<Article> article = articleService.findOne(id);
+        Optional<Comment> comments = commentService.getCommentsByArticleId(id);
+        User user = (User) session.getAttribute("user");
         if (article.isEmpty()) {
             return "redirect:/articles/";
         }
         model.addAttribute("article", article.orElse(null));
+        model.addAttribute("user", user);
+        model.addAttribute("comments", comments);
 
         return "articles/articleDetail";
     }
