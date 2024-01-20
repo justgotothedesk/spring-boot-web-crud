@@ -8,6 +8,7 @@ import com.example.demo.service.CommentService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -46,10 +47,15 @@ public class CommentController {
         return "redirect:/articles/" + articleId;
     }
 
-
-
     @GetMapping("/comments/getByArticleId/{articleId}")
-    public Optional<Comment> getCommentsByArticleId(@PathVariable Long articleId) {
+    public Optional<List<Comment>> getCommentsByArticleId(@PathVariable Long articleId) {
         return commentService.getCommentsByArticleId(articleId);
     }
+
+    @GetMapping("/comments/delete/{id}-{commentId}")
+    public String deleteForm(@PathVariable Long id, @PathVariable Long commentId) {
+        commentService.delete(commentId);
+        return "redirect:/articles/"+id;
+    }
+
 }
