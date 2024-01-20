@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,9 +28,14 @@ public class CommentService {
         commentRepository.save(comment);
     }
 
-    public Optional<Comment> getCommentsByArticleId(Long articleId) {
+    public Optional<List<Comment>> getCommentsByArticleId(Long articleId) {
         return commentRepository.findByArticleId(articleId);
     }
+
+    public void delete(Long id) {
+        commentRepository.delete(id);
+    }
+
 }
 
 

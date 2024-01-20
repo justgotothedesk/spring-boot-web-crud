@@ -63,7 +63,7 @@ public class ArticleController {
     @GetMapping("articles/{id}")
     public String detail(@PathVariable Long id, Model model) {
         Optional<Article> article = articleService.findOne(id);
-        Optional<Comment> comments = commentService.getCommentsByArticleId(id);
+        Optional<List<Comment>> comments = commentService.getCommentsByArticleId(id);
         User user = (User) session.getAttribute("user");
         if (article.isEmpty()) {
             return "redirect:/articles/";
