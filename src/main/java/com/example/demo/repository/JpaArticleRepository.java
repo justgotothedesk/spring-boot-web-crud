@@ -50,9 +50,9 @@ public class JpaArticleRepository implements ArticleRepository{
     }
 
     @Override
-    public Optional<Article> findByWriter(String writer) {
-        List<Article> result = em.createQuery("select a from Article a where a.writer=:writer", Article.class)
-                .setParameter("writer", writer)
+    public Optional<Article> findByUserID(String id) {
+        List<Article> result = em.createQuery("SELECT a FROM Article a WHERE a.user.id = :id", Article.class)
+                .setParameter("id", id)
                 .getResultList();
 
         return result.stream().findAny();
