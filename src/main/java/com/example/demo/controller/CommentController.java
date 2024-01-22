@@ -58,4 +58,22 @@ public class CommentController {
         return "redirect:/articles/"+id;
     }
 
+    @GetMapping("/comments/update/{id}-{commentId}")
+    public String updateForm(@PathVariable Long id, @PathVariable Long commentId, Model model) {
+        Optional<Article> article = articleService.findOne(id);
+        Optional<Comment> comment = commentService.findOne(commentId);
+        model.addAttribute("article", article.orElse(null));
+        model.addAttribute("comment", comment.orElse(null));
+
+        return "comments/updateComment";
+    }
+
+    @PostMapping("/comments/update/{id}-{commentId}")
+    public String update(@PathVariable Long id, @PathVariable Long commentId, String content) {
+        Comment temp = new Comment();
+        temp.setContent(content);
+        commentService.update(commentId, temp);
+
+        return "redirect:/articles/"+id;
+    }
 }

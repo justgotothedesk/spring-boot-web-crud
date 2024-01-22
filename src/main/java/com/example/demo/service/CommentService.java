@@ -36,6 +36,23 @@ public class CommentService {
         commentRepository.delete(id);
     }
 
+    public Optional<Comment> findOne(Long id) {
+        return commentRepository.findById(id);
+    }
+
+    public Long update(Long id, Comment newComment) {
+        Optional<Comment> optionalComment = commentRepository.findById(id);
+
+        if (optionalComment.isPresent()) {
+            Comment originComment = optionalComment.get();
+            originComment.setContent(newComment.getContent());
+
+            return originComment.getId();
+        } else {
+            return null;
+        }
+    }
+
 }
 
 
