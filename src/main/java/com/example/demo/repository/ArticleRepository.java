@@ -13,4 +13,9 @@ public interface ArticleRepository {
     Optional<Article> findByUserID(String id);
     List<Article> findAll();
     void delete(Long id);
+
+    void like(Long id);
+    void dislike(Long id);
+    void mlike(Long id);
+    void mdislike(Long id);
 }

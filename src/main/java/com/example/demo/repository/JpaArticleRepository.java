@@ -69,4 +69,28 @@ public class JpaArticleRepository implements ArticleRepository{
         Article article = findById(id).orElseThrow(() -> new EntityNotFoundException("Article not found"));
         em.remove(article);
     }
+
+    @Override
+    public void like(Long id) {
+        Article article = findById(id).orElseThrow(() -> new EntityNotFoundException("Article not found"));
+        article.setLikeCount(article.getLikeCount()+1);
+    }
+
+    @Override
+    public void mlike(Long id) {
+        Article article = findById(id).orElseThrow(() -> new EntityNotFoundException("Article not found"));
+        article.setLikeCount(article.getLikeCount()-1);
+    }
+
+    @Override
+    public void dislike(Long id) {
+        Article article = findById(id).orElseThrow(() -> new EntityNotFoundException("Article not found"));
+        article.setDislikeCount(article.getDislikeCount()+1);
+    }
+
+    @Override
+    public void mdislike(Long id) {
+        Article article = findById(id).orElseThrow(() -> new EntityNotFoundException("Article not found"));
+        article.setDislikeCount(article.getDislikeCount()-1);
+    }
 }
