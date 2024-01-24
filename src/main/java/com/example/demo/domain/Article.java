@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
 @Setter
 @Entity
 @ToString
+@Document(indexName = "article")
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +30,9 @@ public class Article {
     private int likeCount;
     private int dislikeCount;
 
+    @Column(name = "search_text", columnDefinition = "TEXT")
+    private String searchText;
+
     public Article() {}
 
     public Article(Long id, String title, String content, User user, List<Recog> recommendations, int likeCount, int dislikeCount) {
@@ -38,5 +43,6 @@ public class Article {
         this.recommendations = recommendations;
         this.likeCount = likeCount;
         this.dislikeCount = dislikeCount;
+        this.searchText = title + " " + content + " " + user.getNickname();
     }
 }
