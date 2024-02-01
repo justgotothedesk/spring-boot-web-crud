@@ -2,17 +2,17 @@ package com.example.demo.controller;
 
 import com.example.demo.domain.Article;
 import com.example.demo.domain.Comment;
+import com.example.demo.domain.File;
 import com.example.demo.domain.User;
 import com.example.demo.service.ArticleService;
 import com.example.demo.service.CommentService;
+import com.example.demo.service.FileService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,12 +22,14 @@ public class ArticleController {
     private final ArticleService articleService;
     private final CommentService commentService;
     private final HttpSession session;
+    private final FileService fileService;
 
     @Autowired
-    public ArticleController(ArticleService articleService, CommentService commentService, HttpSession session) {
+    public ArticleController(ArticleService articleService, CommentService commentService, HttpSession session, FileService fileService) {
         this.articleService = articleService;
         this.commentService = commentService;
         this.session = session;
+        this.fileService = fileService;
     }
 
     @GetMapping("/articles/new")
@@ -42,13 +44,17 @@ public class ArticleController {
     }
 
     @PostMapping("/articles/new")
-    public String create(ArticleForm form) {
+    public String create(ArticleForm form, @RequestParam("file")MultipartFile files) {
         Article article = new Article();
         article.setTitle(form.getTitle());
         User temp = (User) session.getAttribute("user");
         article.setUser(temp);
         article.setContent(form.getContent());
+
+
+
         articleService.create(article);
+
         return "articles/articleList";
     }
 
