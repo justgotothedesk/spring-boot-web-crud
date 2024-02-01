@@ -11,12 +11,12 @@
     <form action="/articles/new" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="title">제목</label>
-            <input type="text" id="title" name="title" placeholder="제목을 입력하세요.">
+            <input type="text" id="title" name="title" placeholder="제목을 입력하세요." required>
             <br>
             <label for="content">내용</label>
-            <textarea id="content" name="content" placeholder="내용을 입력하세요."></textarea>
+            <textarea id="content" name="content" placeholder="내용을 입력하세요." required></textarea>
             <br>
-            <input type="file" name="file" multiple="multiple"/>
+            <input type="file" name="files" multiple="multiple"/>
         </div>
         <button type="submit">게시글 작성</button>
     </form>
