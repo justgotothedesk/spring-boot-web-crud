@@ -44,18 +44,28 @@ public class ArticleController {
     }
 
     @PostMapping("/articles/new")
-    public String create(ArticleForm form, @RequestParam("file")MultipartFile files) {
+    public String create(@ModelAttribute ArticleForm form, @RequestParam("files") List<MultipartFile> files) {
         Article article = new Article();
         article.setTitle(form.getTitle());
         User temp = (User) session.getAttribute("user");
         article.setUser(temp);
         article.setContent(form.getContent());
-
-
-
+        article.setLikeCount(0);
+        article.setDislikeCount(0);
         articleService.create(article);
 
-        return "articles/articleList";
+        if (!files.isEmpty()) {
+            for (MultipartFile file : files) {
+                File eachFile = new File();
+                eachFile.setArticle(article);
+                eachFile.setUser(temp);
+                eachFile.setFileName(file.getOriginalFilename());
+                eachFile.setFilePath("/Users/shin/Desktop/file_db/");
+                fileService.create(eachFile);
+            }
+        }
+
+        return "redirect:/articles/";
     }
 
     @GetMapping("articles/")
