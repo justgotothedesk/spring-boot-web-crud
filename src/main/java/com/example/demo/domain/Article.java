@@ -23,6 +23,9 @@ public class Article {
     private User user;
 
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<File> files;
+
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Recog> recommendations;
 
     private int likeCount;
