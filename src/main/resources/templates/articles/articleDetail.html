@@ -40,6 +40,14 @@
             <button type="submit">댓글 작성</button>
         </form>
     </div>
+    <div th:if="${files != null && files.isPresent()}">
+        <h3>첨부 파일</h3>
+        <table>
+            <tr th:each="file : ${files.get()}">
+                <td th:text="${file.getFileName()}"></td>
+            </tr>
+        </table>
+    </div>
     <div th:if="${comments.isPresent()}">
         <h3>댓글 목록</h3>
         <table>
