@@ -80,6 +80,7 @@ public class ArticleController {
     public String detail(@PathVariable Long id, Model model) {
         Optional<Article> article = articleService.findOne(id);
         Optional<List<Comment>> comments = commentService.getCommentsByArticleId(id);
+        Optional<List<File>> files = fileService.getFilesByArticleId(id);
         User user = (User) session.getAttribute("user");
         if (article.isEmpty()) {
             return "redirect:/articles/";
@@ -87,6 +88,7 @@ public class ArticleController {
         model.addAttribute("article", article.orElse(null));
         model.addAttribute("user", user);
         model.addAttribute("comments", comments);
+        model.addAttribute("files", files);
 
         return "articles/articleDetail";
     }
