@@ -1,6 +1,7 @@
 package com.example.demo.repository;
 
 import com.example.demo.domain.Article;
+import com.example.demo.domain.Comment;
 import com.example.demo.domain.File;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
@@ -42,4 +43,12 @@ public class JpaFileRepository implements FileRepository{
         return Optional.ofNullable(file);
     }
 
+    @Override
+    public Optional<List<File>> findByArticleId(Long articleId) {
+        List<File> result = em.createQuery("select f from File f where f.article.id=:articleId", File.class)
+                .setParameter("articleId", articleId)
+                .getResultList();
+
+        return Optional.of(result);
+    }
 }

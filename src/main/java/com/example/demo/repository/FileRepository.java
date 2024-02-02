@@ -1,5 +1,6 @@
 package com.example.demo.repository;
 
+import com.example.demo.domain.Comment;
 import com.example.demo.domain.File;
 
 import java.util.List;
@@ -10,4 +11,6 @@ public interface FileRepository {
     void delete(Long id);
     List<File> findAll();
     Optional<File> findById(Long id);
+
+    Optional<List<File>> findByArticleId(Long id);
 }
