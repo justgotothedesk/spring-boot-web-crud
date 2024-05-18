@@ -22,8 +22,8 @@ services:
     depends_on:
       - db
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:33061/spring?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&useLegacyDatetimeCode=false
-      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/spring?autoReconnect=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&useLegacyDatetimeCode=false
+      SPRING_DATASOURCE_USERNAME: user
       SPRING_DATASOURCE_PASSWORD: 1234
     networks:
       - springboot-mysql
